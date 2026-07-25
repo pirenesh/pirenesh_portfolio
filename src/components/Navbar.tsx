@@ -9,18 +9,19 @@ const navLinks = [
   { name: 'Skills', href: '#skills' },
   { name: 'Projects', href: '#projects' },
   { name: 'Experience', href: '#experience' },
+  { name: 'Certificates', href: '#certificates' },
   { name: 'Contact', href: '#contact' },
 ];
 
 const Navbar = () => {
-  const [scrolled, setScrolled] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
   const { theme, toggleTheme } = useTheme();
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
+      setIsScrolled(window.scrollY > 50);
       
       // Update active section based on scroll
       const sections = navLinks.map(link => link.name.toLowerCase());
@@ -42,20 +43,20 @@ const Navbar = () => {
   return (
     <nav
       className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-        scrolled ? 'py-4 backdrop-blur-md bg-[#0A0A0A]/80 border-b border-gray-800' : 'py-6 bg-transparent'
+        isScrolled ? 'py-4 backdrop-blur-md bg-bg-primary/80 border-b border-border-primary' : 'py-6 bg-transparent'
       }`}
     >
       <div className="container mx-auto px-6 md:px-12 flex justify-between items-center">
         {/* Logo */}
         <motion.a
           href="#home"
-          className="text-2xl font-heading font-bold text-white relative group"
+          className="text-2xl font-heading font-bold text-text-primary relative group"
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <span className="text-[var(--color-primary-red)]">P</span>R
-          <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[var(--color-primary-red)] transition-all group-hover:w-full"></span>
+          <span className="text-[var(--color-accent-primary)]">P</span>R
+          <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[var(--color-accent-primary)] transition-all group-hover:w-full"></span>
         </motion.a>
 
         {/* Desktop Nav */}
@@ -70,8 +71,8 @@ const Navbar = () => {
               >
                 <a
                   href={link.href}
-                  className={`text-sm font-medium transition-colors hover:text-[var(--color-primary-red)] ${
-                    activeSection === link.name.toLowerCase() ? 'text-[var(--color-primary-red)]' : 'text-gray-300'
+                  className={`font-body font-[500] text-[15px] transition-colors hover:text-[var(--color-accent-primary)] ${
+                    activeSection === link.name.toLowerCase() ? 'text-[var(--color-accent-primary)]' : 'text-text-secondary'
                   }`}
                 >
                   {link.name}
@@ -88,7 +89,7 @@ const Navbar = () => {
           >
             <button
               onClick={toggleTheme}
-              className="p-2 rounded-full hover:bg-gray-800 transition-colors text-gray-300 hover:text-white"
+              className="p-2 rounded-full hover:bg-border-primary transition-colors text-text-secondary hover:text-text-primary"
               aria-label="Toggle Theme"
             >
               {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
@@ -96,7 +97,7 @@ const Navbar = () => {
             <a
               href="/Pirenesh_Ragule_S_Resume.pdf"
               download
-              className="flex items-center space-x-2 px-5 py-2 rounded border border-[var(--color-primary-red)] text-[var(--color-primary-red)] hover:bg-[var(--color-primary-red)] hover:text-white transition-all text-sm font-medium hover:shadow-[0_0_15px_rgba(225,6,0,0.5)]"
+              className="flex items-center space-x-2 px-5 py-2 rounded border border-[var(--color-accent-primary)] text-[var(--color-accent-primary)] hover:bg-[var(--color-accent-primary)] hover:text-text-primary transition-all font-body font-[500] text-[15px] hover:shadow-[0_0_15px_rgba(96,165,250,0.5)]"
             >
               <span>Resume</span>
               <Download size={16} />
@@ -106,35 +107,35 @@ const Navbar = () => {
 
         {/* Mobile Menu Button */}
         <div className="md:hidden flex items-center space-x-4">
-          <button onClick={toggleTheme} className="text-gray-300">
+          <button onClick={toggleTheme} className="text-text-secondary">
             {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
           </button>
           <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="text-white hover:text-[var(--color-primary-red)] transition-colors"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className="text-text-primary hover:text-[var(--color-accent-primary)] transition-colors"
           >
-            {mobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
+            {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
           </button>
         </div>
       </div>
 
       {/* Mobile Nav */}
       <AnimatePresence>
-        {mobileMenuOpen && (
+        {isMobileMenuOpen && (
           <motion.div
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-[#0A0A0A] border-b border-gray-800"
+            className="md:hidden bg-bg-primary border-b border-border-primary"
           >
             <ul className="flex flex-col px-6 py-4 space-y-4">
               {navLinks.map((link) => (
                 <li key={link.name}>
                   <a
                     href={link.href}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className={`block text-lg font-medium hover:text-[var(--color-primary-red)] ${
-                      activeSection === link.name.toLowerCase() ? 'text-[var(--color-primary-red)]' : 'text-gray-300'
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className={`block font-body font-[500] text-[18px] hover:text-[var(--color-accent-primary)] ${
+                      activeSection === link.name.toLowerCase() ? 'text-[var(--color-accent-primary)]' : 'text-text-secondary'
                     }`}
                   >
                     {link.name}
@@ -145,7 +146,7 @@ const Navbar = () => {
                 <a
                   href="/Pirenesh_Ragule_S_Resume.pdf"
                   download
-                  className="flex items-center justify-center space-x-2 w-full px-5 py-3 mt-4 rounded bg-[var(--color-primary-red)] text-white font-medium"
+                  className="flex items-center justify-center space-x-2 w-full px-5 py-3 mt-4 rounded bg-[var(--color-accent-primary)] text-white font-body font-[500] text-[15px]"
                 >
                   <span>Download Resume</span>
                   <Download size={18} />

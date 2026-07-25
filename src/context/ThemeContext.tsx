@@ -15,16 +15,12 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     const root = window.document.documentElement;
-    root.classList.remove('light', 'dark');
-    root.classList.add(theme);
-    
-    // Also change root CSS variables based on theme
     if (theme === 'light') {
-      root.style.setProperty('--color-primary-black', '#F5F5F5');
-      root.style.setProperty('color', '#0A0A0A');
+      root.classList.add('light');
+      root.classList.remove('dark');
     } else {
-      root.style.setProperty('--color-primary-black', '#0A0A0A');
-      root.style.setProperty('color', '#F5F5F5');
+      root.classList.add('dark');
+      root.classList.remove('light');
     }
   }, [theme]);
 

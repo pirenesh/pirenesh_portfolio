@@ -1,24 +1,72 @@
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=Geist+Mono:wght@400;500;600&family=Space+Grotesk:wght@300;400;500;600;700;800&display=swap');
 @import "tailwindcss";
 
-@theme {
-  --color-primary-black: #0A0A0A;
-  --color-primary-red: #E10600;
-  --color-primary-red-hover: #FF1E1E;
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --bg-primary: #030712;
+  --bg-secondary: #111827;
+  --card-bg: #1E293B;
+  --text-primary: #FFFFFF;
+  --text-secondary: #CBD5E1;
+  --border-primary: #334155;
   
+  --accent-primary: #60A5FA;
+  --accent-secondary: #38BDF8;
+  --accent-glow: #7DD3FC;
+}
+
+:root.light {
+  --bg-primary: #F8FAFC;
+  --bg-secondary: #FFFFFF;
+  --card-bg: #F1F5F9;
+  --text-primary: #030712;
+  --text-secondary: #475569;
+  --border-primary: #E2E8F0;
+  
+  --accent-primary: #3B82F6;
+  --accent-secondary: #0EA5E9;
+  --accent-glow: #BAE6FD;
+}
+
+@theme {
+  --color-accent-primary: var(--accent-primary);
+  --color-accent-secondary: var(--accent-secondary);
+  --color-accent-glow: var(--accent-glow);
+  
+  --color-bg-primary: var(--bg-primary);
+  --color-bg-secondary: var(--bg-secondary);
+  --color-card-bg: var(--card-bg);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-border-primary: var(--border-primary);
+
   --font-heading: "Space Grotesk", sans-serif;
-  --font-body: "Inter", sans-serif;
+  --font-body: "Geist", sans-serif;
+  --font-mono: "Geist Mono", monospace;
 }
 
 @layer base {
   body {
-    background-color: var(--color-primary-black);
-    color: #F5F5F5;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
     font-family: var(--font-body);
+    font-size: 17px;
+    line-height: 1.8;
     overflow-x: hidden;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    /* Hide standard cursor for the custom cursor */
+    cursor: none; 
   }
 
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-heading);
+    letter-spacing: -0.02em;
+    font-weight: 700;
+  }
+  
+  a, button, input, textarea, select, .cursor-pointer {
+    cursor: none;
   }
 }
 
@@ -27,12 +75,19 @@
   width: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #0A0A0A;
+  background: var(--bg-primary);
 }
 ::-webkit-scrollbar-thumb {
-  background: #E10600;
+  background: var(--border-primary);
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #FF1E1E;
+  background: var(--accent-primary);
+}
+
+.glass-card {
+  @apply bg-card-bg/40 backdrop-blur-xl border border-border-primary/50 rounded-2xl shadow-lg transition-all duration-300;
+}
+.glass-card:hover {
+  @apply border-accent-primary/50 shadow-[0_8px_30px_rgb(0,0,0,0.12)] shadow-accent-primary/10 -translate-y-1;
 }

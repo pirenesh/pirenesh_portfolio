@@ -1,7 +1,5 @@
 import { ThemeProvider } from './context/ThemeContext';
 import Preloader from './components/Preloader';
-import CustomCursor from './components/CustomCursor';
-import ScrollProgress from './components/ScrollProgress';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import About from './components/About';
@@ -11,17 +9,22 @@ import Experience from './components/Experience';
 import Certificates from './components/Certificates';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
+import CustomCursor from './components/CustomCursor';
+import PremiumBackground from './components/PremiumBackground';
+import ScrollProgress from './components/ScrollProgress';
 
 function App() {
   return (
     <ThemeProvider>
       <Preloader />
-      <CustomCursor />
-      <ScrollProgress />
       
-      <div className="min-h-screen">
+      <div className="min-h-screen relative font-sans text-text-primary overflow-x-hidden">
+        <CustomCursor />
+        <ScrollProgress />
+        <PremiumBackground />
+        
         <Navbar />
-        <main>
+        <main className="relative z-10">
           <Hero />
           <About />
           <Skills />
