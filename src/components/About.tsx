@@ -74,7 +74,7 @@ const About = () => {
           
           {/* Portrait Photo (Mobile: Order 1, Desktop: Top Right) */}
           <motion.div 
-            className="w-full order-1 lg:order-none lg:col-start-2 lg:row-start-1"
+            className="w-full order-1 lg:order-none lg:col-start-2 lg:row-start-1 lg:-mt-[108px] xl:-mt-[112px]"
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-100px" }}

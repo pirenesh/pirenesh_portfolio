@@ -22,24 +22,45 @@ const Preloader = () => {
     >
       <div className="relative">
         <motion.div
-          className="text-6xl font-bold text-transparent bg-clip-text font-heading bg-gradient-to-r from-red-500 to-red-700"
+          className="text-7xl font-black font-heading flex items-center justify-center tracking-tight"
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, ease: "easeOut" }}
-          style={{
-            WebkitTextStroke: "1px #60A5FA",
-            filter: "drop-shadow(0 0 10px rgba(225, 6, 0, 0.8))"
-          }}
         >
-          PR
+          <span 
+            className="text-transparent bg-clip-text"
+            style={{ 
+              backgroundImage: "linear-gradient(to bottom, #bfe0ff, #5fa8e8, #2c5f96)",
+              filter: "drop-shadow(0 0 12px rgba(95, 168, 232, 0.5))"
+            }}
+          >
+            P
+          </span>
+          <span 
+            className="text-transparent bg-clip-text"
+            style={{ 
+              backgroundImage: "linear-gradient(to bottom, #f4f6f9, #c6ccd6, #8b929e)",
+              filter: "drop-shadow(0 0 12px rgba(198, 204, 214, 0.5))"
+            }}
+          >
+            R
+          </span>
         </motion.div>
         <motion.div
-          className="absolute inset-0 border-t-2 border-r-2 border-[var(--color-accent-primary)] rounded-full -m-4"
+          className="absolute inset-0 border-t-2 border-r-2 rounded-full -m-6"
+          style={{ 
+            borderColor: "#5fa8e8",
+            filter: "drop-shadow(0 0 8px rgba(95, 168, 232, 0.6))"
+          }}
           animate={{ rotate: 360 }}
           transition={{ repeat: Infinity, duration: 1.5, ease: "linear" }}
         />
         <motion.div
-          className="absolute inset-0 border-b-2 border-l-2 border-[var(--color-accent-secondary)] rounded-full -m-2 opacity-50"
+          className="absolute inset-0 border-b-2 border-l-2 rounded-full -m-3 opacity-80"
+          style={{ 
+            borderColor: "#c6ccd6",
+            filter: "drop-shadow(0 0 8px rgba(198, 204, 214, 0.6))"
+          }}
           animate={{ rotate: -360 }}
           transition={{ repeat: Infinity, duration: 2, ease: "linear" }}
         />
