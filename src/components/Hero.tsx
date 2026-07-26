@@ -101,26 +101,26 @@ const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.8 }}
-            className="flex flex-wrap items-center gap-4"
+            className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 w-full sm:w-auto"
           >
-            <a href="#projects">
+            <a href="#projects" className="w-full sm:w-auto">
               <motion.button 
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="relative group px-8 py-3.5 bg-text-primary text-bg-primary rounded-full font-body font-[600] text-[16px] tracking-[0.02em] overflow-hidden transition-all shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:shadow-[0_0_30px_rgba(96,165,250,0.5)]"
+                className="relative w-full flex justify-center group px-8 py-3.5 bg-text-primary text-bg-primary rounded-full font-body font-[600] text-[16px] tracking-[0.02em] overflow-hidden transition-all shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:shadow-[0_0_30px_rgba(96,165,250,0.5)]"
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-[var(--color-accent-primary)] to-[var(--color-accent-secondary)] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                <span className="relative z-10 flex items-center group-hover:text-white transition-colors">
+                <span className="relative z-10 flex items-center justify-center group-hover:text-white transition-colors">
                   View Projects <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </span>
               </motion.button>
             </a>
             
-            <a href="/Pirenesh_Ragule_S_Resume.pdf" download target="_blank" rel="noopener noreferrer">
+            <a href="/Pirenesh_Ragule_S_Resume.pdf" download target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto">
               <motion.button 
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="px-8 py-3.5 bg-bg-secondary/40 backdrop-blur-md border border-border-primary hover:border-[var(--color-accent-primary)]/50 rounded-full font-body font-[600] text-[16px] tracking-[0.02em] flex items-center text-text-primary transition-all hover:bg-bg-secondary/80"
+                className="w-full px-8 py-3.5 bg-bg-secondary/40 backdrop-blur-md border border-border-primary hover:border-[var(--color-accent-primary)]/50 rounded-full font-body font-[600] text-[16px] tracking-[0.02em] flex items-center justify-center text-text-primary transition-all hover:bg-bg-secondary/80"
               >
                 <Download className="mr-2 w-5 h-5" /> Resume
               </motion.button>

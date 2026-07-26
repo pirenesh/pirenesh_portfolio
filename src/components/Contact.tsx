@@ -1,17 +1,43 @@
 import { motion } from 'framer-motion';
 import { Mail, Phone, Send, MessageSquareText } from 'lucide-react';
 import { FaLinkedin, FaGithub } from 'react-icons/fa';
+import emailjs from '@emailjs/browser';
 import { useState } from 'react';
 
 const Contact = () => {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [isFocused, setIsFocused] = useState<string | null>(null);
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
-    alert('Thank you for your message! I will get back to you soon.');
-    setFormData({ name: '', email: '', message: '' });
+    if (!formData.name || !formData.email || !formData.message) return;
+    
+    // basic email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) return;
+
+    setStatus('loading');
+
+    const SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+    const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+    const PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+
+    try {
+      await emailjs.send(SERVICE_ID, TEMPLATE_ID, {
+        name: formData.name,
+        email: formData.email,
+        message: formData.message,
+      }, PUBLIC_KEY);
+      
+      setStatus('success');
+      setFormData({ name: '', email: '', message: '' });
+      setTimeout(() => setStatus('idle'), 5000);
+    } catch (error) {
+      console.error('EmailJS Error:', error);
+      setStatus('error');
+      setTimeout(() => setStatus('idle'), 5000);
+    }
   };
 
   return (
@@ -155,16 +181,28 @@ const Contact = () => {
                 ></textarea>
               </div>
 
+              {status === 'success' && (
+                <div className="p-4 bg-green-500/10 border border-green-500/30 rounded-xl text-green-400 font-body text-sm text-center">
+                  Message sent! I'll get back to you soon.
+                </div>
+              )}
+              {status === 'error' && (
+                <div className="p-4 bg-red-500/10 border border-red-500/30 rounded-xl text-red-400 font-body text-sm text-center">
+                  Something went wrong — please try emailing me directly at pirenesh2026@gmail.com instead.
+                </div>
+              )}
+
               <motion.button
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
+                whileHover={{ scale: status === 'loading' ? 1 : 1.02 }}
+                whileTap={{ scale: status === 'loading' ? 1 : 0.98 }}
                 type="submit"
-                className="relative group/btn mt-4 w-full bg-text-primary text-bg-primary font-body font-[600] text-[16px] tracking-[0.02em] py-4 rounded-xl overflow-hidden transition-all shadow-[0_0_20px_rgba(255,255,255,0.1)] hover:shadow-[0_0_30px_rgba(96,165,250,0.4)] flex items-center justify-center gap-2"
+                disabled={status === 'loading'}
+                className="relative group/btn mt-4 w-full bg-text-primary text-bg-primary font-body font-[600] text-[16px] tracking-[0.02em] py-4 rounded-xl overflow-hidden transition-all shadow-[0_0_20px_rgba(255,255,255,0.1)] hover:shadow-[0_0_30px_rgba(96,165,250,0.4)] flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-[var(--color-accent-primary)] to-[var(--color-accent-secondary)] opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300" />
                 <span className="relative z-10 flex items-center group-hover/btn:text-white transition-colors">
-                  Send Message
-                  <Send className="w-5 h-5 ml-2 group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform" />
+                  {status === 'loading' ? 'Sending...' : 'Send Message'}
+                  {status !== 'loading' && <Send className="w-5 h-5 ml-2 group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform" />}
                 </span>
               </motion.button>
 

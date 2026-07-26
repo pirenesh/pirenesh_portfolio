@@ -135,7 +135,7 @@ const About = () => {
 
             {/* Dynamic Stats Row */}
             <motion.div 
-              className="grid grid-cols-2 md:grid-cols-4 gap-6 pt-10 mt-4 border-t border-border-primary/30 w-full"
+              className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 pt-10 mt-4 border-t border-border-primary/30 w-full"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
@@ -143,10 +143,10 @@ const About = () => {
             >
               {stats.map((stat, i) => (
                 <div key={i} className="flex flex-col">
-                  <div className="font-heading font-[800] text-[36px] lg:text-[42px] text-transparent bg-clip-text bg-gradient-to-r from-[var(--color-accent-primary)] to-[var(--color-accent-glow)] mb-1 leading-none">
+                  <div className="font-heading font-[800] text-[28px] sm:text-[32px] lg:text-[42px] text-transparent bg-clip-text bg-gradient-to-r from-[var(--color-accent-primary)] to-[var(--color-accent-glow)] mb-1 leading-none">
                     <Counter value={stat.value} decimals={stat.decimals} />
                   </div>
-                  <div className="font-body font-[600] text-[12px] text-text-secondary uppercase tracking-[0.1em]">
+                  <div className="font-body font-[600] text-[10px] sm:text-[12px] text-text-secondary uppercase tracking-[0.1em]">
                     {stat.label}
                   </div>
                 </div>
