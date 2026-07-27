@@ -9,12 +9,12 @@ const CGPA = "8.71";
 
 function Counter({ value, decimals = 0 }: { value: number | string, decimals?: number }) {
   const ref = useRef<HTMLSpanElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-50px" });
+  const isInView = useInView(ref, { once: true, margin: "-50px 0px" });
   
   useEffect(() => {
     if (isInView && ref.current) {
       const target = typeof value === 'string' ? parseFloat(value) : value;
-      animate(0, target, {
+      const animation = animate(0, target, {
         duration: 2,
         ease: "easeOut",
         onUpdate: (latest) => {
@@ -23,6 +23,7 @@ function Counter({ value, decimals = 0 }: { value: number | string, decimals?: n
           }
         }
       });
+      return () => animation.stop();
     }
   }, [value, decimals, isInView]);
 
