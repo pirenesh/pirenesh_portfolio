@@ -7,9 +7,9 @@ import { certificates } from './Certificates';
 
 const CGPA = "8.71";
 
-function Counter({ value, decimals = 0 }: { value: number | string, decimals?: number }) {
+function Counter({ value }: { value: number | string }) {
   const ref = useRef<HTMLSpanElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-50px 0px" });
+  const isInView = useInView(ref, { once: true, margin: "0px" });
   
   useEffect(() => {
     if (isInView && ref.current) {
@@ -19,22 +19,22 @@ function Counter({ value, decimals = 0 }: { value: number | string, decimals?: n
         ease: "easeOut",
         onUpdate: (latest) => {
           if (ref.current) {
-            ref.current.textContent = latest.toFixed(decimals);
+            ref.current.textContent = Math.round(latest).toString();
           }
         }
       });
       return () => animation.stop();
     }
-  }, [value, decimals, isInView]);
+  }, [value, isInView]);
 
   return <span ref={ref}>0</span>;
 }
 
 const stats = [
-  { label: "CGPA", value: CGPA, decimals: 2 },
-  { label: "PROJECTS", value: projects.length, decimals: 0 },
-  { label: "INTERNSHIPS", value: experiences.length, decimals: 0 },
-  { label: "CERTIFICATIONS", value: certificates.length, decimals: 0 },
+  { label: "CGPA", value: CGPA, isStatic: true },
+  { label: "PROJECTS", value: projects.length },
+  { label: "INTERNSHIPS", value: experiences.length },
+  { label: "CERTIFICATIONS", value: certificates.length },
 ];
 
 const About = () => {
@@ -145,7 +145,18 @@ const About = () => {
               {stats.map((stat, i) => (
                 <div key={i} className="flex flex-col">
                   <div className="font-heading font-[800] text-[28px] sm:text-[32px] lg:text-[42px] text-transparent bg-clip-text bg-gradient-to-r from-[var(--color-accent-primary)] to-[var(--color-accent-glow)] mb-1 leading-none">
-                    <Counter value={stat.value} decimals={stat.decimals} />
+                    {stat.isStatic ? (
+                      <motion.span
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.5, delay: 0.5 }}
+                      >
+                        {stat.value}
+                      </motion.span>
+                    ) : (
+                      <Counter value={stat.value} />
+                    )}
                   </div>
                   <div className="font-body font-[600] text-[10px] sm:text-[12px] text-text-secondary uppercase tracking-[0.1em]">
                     {stat.label}
@@ -153,6 +164,11 @@ const About = () => {
                 </div>
               ))}
             </motion.div>
+
+            {/* Debug Line (Temporary) */}
+            <div className="text-gray-500 text-xs mt-2 w-full text-center">
+              Debug: CGPA={CGPA}, Internships_count={experiences.length}, Projects_count={projects.length}, Certs_count={certificates.length}
+            </div>
           </motion.div>
 
           {/* Skill Highlight Cards (Mobile: Order 3, Desktop: Bottom Full Width) */}
